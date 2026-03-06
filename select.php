@@ -7,7 +7,9 @@
 <body>
     <?php
     require "connect.php";
-    $sql = "SELECT*FROM customer";
+    $sql = "SELECT c.CustomerID,c.Name,c.Email,cu.CountryName
+FROM customer c ,country cu
+WHERE c.CountryCode  = cu.CountryCode AND cu.CountryCode LIKE 'TH'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     ?>
@@ -20,25 +22,25 @@
             <th width="140">
                 <div align="center">ชื่อ</div>
             </th>
-            <th width="120">
+            <!-- <th width="120">
                 <div align="center">วันเกิด</div>
-            </th>
+            </th> -->
             <th width="100">
                 <div align="center">อีเมล์</div>
             </th>
-            <th width="50">
+            <!-- <th width="50">
                 <div align="center">ประเทศ</div>
             </th>
             <th width="70">
                 <div align="center">ยอดหนี็</div>
-            </th>
+            </th> -->
         </tr>
 
         <?php
         while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
         ?>
             <tr>
-                <td><a herf="detail.php?CustomerID=<?php echo $result['CustomerID']; ?>">
+                <td><a href="detail.php?CustomerID=<?php echo $result['CustomerID']; ?>">
                         <?php echo $result["CustomerID"]; ?>
                     </a>
                 </td>
@@ -47,14 +49,14 @@
                     <?php echo $result["Name"]; ?>
                 </td>
 
-                <td>
+                <!-- <td>
                     <?php echo $result["Birthdate"]; ?></div>
-                </td>
+                </td> -->
                 <td><?php echo $result["Email"]; ?></td>
-                <td>
+                <!-- <td>
                     <?php echo $result["CountryCode"]; ?></div>
-                </td>
-                <td><?php echo $result["OutstandingDebt"]; ?></td>
+                </td> -->
+                <!-- <td><?php echo $result["OutstandingDebt"]; ?></td> -->
             </tr>
         <?php
         }

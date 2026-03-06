@@ -7,23 +7,23 @@
 <body>
     <?php
     if (isset($_GET["CustomerID"])) {
-        $strCustomerID = $_GET["Customer"];
+        $strCustomerID = $_GET["CustomerID"];
     }
     echo $strCustomerID;
     require "connect.php";
-    $sql = "SELECT*FROM customer WHERE CustomerID = ?";
+    $sql = "SELECT * FROM customer WHERE CustomerID = ?";
     $params = array($strCustomerID);
     $stmt = $conn->prepare($sql);
-    $stmt->execute($prepare($sql));
+    $stmt->execute($params);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
-    <table>
+    <table width="300" border="1">
         <tr>
             <th width="325">Customer</th>
-            <td width="240"><?php echo $result["Customer"]; ?></td>
+            <td width="240"><?php echo $result["CustomerID"]; ?></td>
         </tr>
         <tr>
-            <th width="130">am</th>
+            <th width="130">Name</th>
             <td><?php echo $result["Name"]; ?></td>
         </tr>
         <tr>
